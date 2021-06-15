@@ -1,0 +1,52 @@
+server:
+    http_listen_port: 8080
+    log_level: info
+tempo:
+    configs:
+      - name: default
+        remote_write: ${jsonencode(concat([{
+          endpoint = TEMPO_ENDPOINT,
+          basic_auth = (TEMPO_USERNAME != "") ? { username = TEMPO_USERNAME, password = "$${TEMPO_PASSWORD}" } : {},
+          retry_on_failure = { enabled = TEMPO_ENDPOINT_RETRY_ON_FAILURE}
+        }], (TEMPO_ADDITIONAL_ENDPOINTS != []) ? TEMPO_ADDITIONAL_ENDPOINTS : []))}
+        attributes: ${jsonencode(TEMPO_ATTRIBUTES)}
+        batch:
+            send_batch_size: 1000
+            timeout: 5s
+        receivers:
+            jaeger:
+                protocols:
+                    grpc: null
+                    thrift_binary: null
+                    thrift_compact: null
+                    thrift_http: null
+                remote_sampling:
+                    insecure: true
+                    strategy_file: /etc/agent/strategies.json
+            opencensus: null
+            otlp:
+                protocols:
+                    grpc: null
+                    http: null
+            zipkin: null
+        scrape_configs:
+          - bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+            job_name: kubernetes-pods
+            kubernetes_sd_configs:
+              - role: pod
+            relabel_configs:
+              - action: replace
+                source_labels:
+                  - __meta_kubernetes_namespace
+                target_label: namespace
+              - action: replace
+                source_labels:
+                  - __meta_kubernetes_pod_name
+                target_label: pod
+              - action: replace
+                source_labels:
+                  - __meta_kubernetes_pod_container_name
+                target_label: container
+            tls_config:
+                ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+                insecure_skip_verify: false
