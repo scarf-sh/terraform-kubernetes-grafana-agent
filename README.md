@@ -17,9 +17,9 @@ This project is built and maintained in Scarf's collaboration with
 
 See each individual folders:
 
-* [grafana-agent](./grafana-agent) - to forward metrics
-* [grafana-agent-loki](./grafana-agent-loki) - to forward logs
-* [grafana-agent-tempo](./grafana-agent-tempo) - to forward traces
+* [grafana-agent](./modules/grafana-agent) - to forward metrics
+* [grafana-agent-loki](./modules/grafana-agent-loki) - to forward logs
+* [grafana-agent-tempo](./modules/grafana-agent-tempo) - to forward traces
 
 # License
 
