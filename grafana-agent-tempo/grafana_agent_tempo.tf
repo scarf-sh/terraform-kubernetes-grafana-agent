@@ -20,9 +20,11 @@ variable "tempo_password" {
 }
 variable "tempo_additional_endpoints" {
   type        = list(any)
+  default     = []
   description = "Additional endpoints to configure"
 }
 variable "tempo_attributes" {
   type        = map(any)
+  default     = {}
   description = "Attributes to set for all endpoints."
 }

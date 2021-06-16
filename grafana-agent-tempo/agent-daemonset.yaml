@@ -9,7 +9,9 @@ tempo:
           basic_auth = (TEMPO_USERNAME != "") ? { username = TEMPO_USERNAME, password = "$${TEMPO_PASSWORD}" } : {},
           retry_on_failure = { enabled = TEMPO_ENDPOINT_RETRY_ON_FAILURE}
         }], (TEMPO_ADDITIONAL_ENDPOINTS != []) ? TEMPO_ADDITIONAL_ENDPOINTS : []))}
+        %{~ if jsonencode(TEMPO_ATTRIBUTES) != "{}" ~}
         attributes: ${jsonencode(TEMPO_ATTRIBUTES)}
+        %{~ endif}
         batch:
             send_batch_size: 1000
             timeout: 5s
