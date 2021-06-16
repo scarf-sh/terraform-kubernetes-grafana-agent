@@ -9,3 +9,5 @@ exposes certain configuration parameters as module variables.
 The initial migration was done via the `ks2tf` tool, but for keeping up to date
 with upstream changes, it's probably best to diff their configuration changes
 across different releases.
+
+This project is built and maintained in Scarf's collaboration with [Numtide](https://numtide.com)
