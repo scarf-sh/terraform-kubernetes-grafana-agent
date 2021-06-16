@@ -8,3 +8,18 @@ https://github.com/grafana/agent/#getting-started, which will essentially just
 
 To properly track their lifecycle, they have been converted to terraform
 resources, using `t2fs`.
+
+## Example
+
+```tf
+module "grafana_agent" {
+  source = "github.com/scarf-sh/terraform-kubernetes-grafana-agent?ref=v0.1.1//grafana-agent"
+
+  remote_write_url      = local.prometheus_remote_write_url
+  remote_write_username = local.prometheus_remote_write_username
+  remote_write_password = local.prometheus_remote_write_password
+  external_labels = {
+    region = local.prometheus_remote_write_region
+  }
+}
+```

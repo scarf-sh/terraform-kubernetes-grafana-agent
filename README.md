@@ -10,4 +10,17 @@ The initial migration was done via the `ks2tf` tool, but for keeping up to date
 with upstream changes, it's probably best to diff their configuration changes
 across different releases.
 
-This project is built and maintained in Scarf's collaboration with [Numtide](https://numtide.com).
+This project is built and maintained in Scarf's collaboration with
+[Numtide](https://numtide.com).
+
+## Usage
+
+See each individual folders:
+
+* [grafana-agent](./grafana-agent) - to forward metrics
+* [grafana-agent-loki](./grafana-agent-loki) - to forward logs
+* [grafana-agent-tempo](./grafana-agent-tempo) - to forward traces
+
+# License
+
+(c) 2021 Scarf Systems, Inc.
