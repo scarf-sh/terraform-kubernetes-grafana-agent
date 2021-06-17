@@ -1,12 +1,14 @@
 resource "kubernetes_service_account" "grafana_agent" {
   metadata {
-    name = "grafana-agent"
+    name      = "grafana-agent"
+    namespace = var.k8s_namespace
   }
 }
 
 resource "kubernetes_cluster_role" "grafana_agent" {
   metadata {
-    name = "grafana-agent"
+    name      = "grafana-agent"
+    namespace = var.k8s_namespace
   }
 
   rule {

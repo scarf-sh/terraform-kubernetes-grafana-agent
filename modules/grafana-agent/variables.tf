@@ -11,3 +11,8 @@ variable "external_labels" {
   type    = map(string)
   default = {}
 }
+variable "k8s_namespace" {
+  type        = string
+  default     = "default"
+  description = "Kubernetes namespace to use"
+}

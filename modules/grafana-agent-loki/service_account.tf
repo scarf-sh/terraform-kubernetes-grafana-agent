@@ -1,12 +1,14 @@
 resource "kubernetes_service_account" "grafana_agent_logs" {
   metadata {
-    name = "grafana-agent-logs"
+    name      = "grafana-agent-logs"
+    namespace = var.k8s_namespace
   }
 }
 
 resource "kubernetes_cluster_role" "grafana_agent_logs" {
   metadata {
-    name = "grafana-agent-logs"
+    name      = "grafana-agent-logs"
+    namespace = var.k8s_namespace
   }
 
   rule {
@@ -23,7 +25,8 @@ resource "kubernetes_cluster_role" "grafana_agent_logs" {
 
 resource "kubernetes_cluster_role_binding" "grafana_agent_logs" {
   metadata {
-    name = "grafana-agent-logs"
+    name      = "grafana-agent-logs"
+    namespace = var.k8s_namespace
   }
 
   subject {

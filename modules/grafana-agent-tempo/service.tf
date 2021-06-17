@@ -1,6 +1,7 @@
 resource "kubernetes_service" "grafana_agent_traces" {
   metadata {
-    name = "grafana-agent-traces"
+    name      = "grafana-agent-traces"
+    namespace = var.k8s_namespace
 
     labels = {
       name = "grafana-agent-traces"

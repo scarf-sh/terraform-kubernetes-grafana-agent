@@ -1,6 +1,7 @@
 resource "kubernetes_config_map" "grafana_agent_logs" {
   metadata {
-    name = "grafana-agent-logs"
+    name      = "grafana-agent-logs"
+    namespace = var.k8s_namespace
   }
 
   data = {
@@ -13,7 +14,8 @@ resource "kubernetes_config_map" "grafana_agent_logs" {
 
 resource "kubernetes_daemonset" "grafana_agent_logs" {
   metadata {
-    name = "grafana-agent-logs"
+    name      = "grafana-agent-logs"
+    namespace = var.k8s_namespace
   }
 
   spec {

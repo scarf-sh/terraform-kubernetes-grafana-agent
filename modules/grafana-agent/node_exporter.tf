@@ -1,6 +1,7 @@
 resource "kubernetes_daemonset" "node_exporter" {
   metadata {
-    name = "node-exporter"
+    name      = "node-exporter"
+    namespace = var.k8s_namespace
 
     labels = {
       name = "node-exporter"

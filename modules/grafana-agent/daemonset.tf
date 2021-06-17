@@ -1,6 +1,7 @@
 resource "kubernetes_config_map" "grafana_agent_daemonset" {
   metadata {
-    name = "grafana-agent"
+    name      = "grafana-agent"
+    namespace = var.k8s_namespace
   }
   data = {
     "agent.yml" = templatefile("${path.module}/agent-daemonset.yaml", {
@@ -14,7 +15,8 @@ resource "kubernetes_config_map" "grafana_agent_daemonset" {
 
 resource "kubernetes_daemonset" "grafana_agent_daemonset" {
   metadata {
-    name = "grafana-agent"
+    name      = "grafana-agent"
+    namespace = var.k8s_namespace
   }
 
   spec {

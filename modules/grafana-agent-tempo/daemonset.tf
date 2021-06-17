@@ -1,6 +1,7 @@
 resource "kubernetes_config_map" "grafana_agent_traces" {
   metadata {
-    name = "grafana-agent-traces"
+    name      = "grafana-agent-traces"
+    namespace = var.k8s_namespace
   }
 
   data = {
@@ -18,7 +19,8 @@ resource "kubernetes_config_map" "grafana_agent_traces" {
 
 resource "kubernetes_daemonset" "grafana_agent_traces" {
   metadata {
-    name = "grafana-agent-traces"
+    name      = "grafana-agent-traces"
+    namespace = var.k8s_namespace
   }
 
   spec {

@@ -1,6 +1,7 @@
 resource "kubernetes_secret" "grafana_agent_loki" {
   metadata {
-    name = "secret-grafana-agent-loki"
+    name      = "secret-grafana-agent-loki"
+    namespace = var.k8s_namespace
   }
 
   data = {
