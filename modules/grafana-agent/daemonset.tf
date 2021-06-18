@@ -46,7 +46,7 @@ resource "kubernetes_daemonset" "grafana_agent_daemonset" {
 
         container {
           name    = "agent"
-          image   = "grafana/agent:main-c7ac289"
+          image   = "grafana/agent:v0.16.0"
           command = ["/bin/agent"]
           args    = ["-config.file=/etc/agent/agent.yml", "-config.expand-env", "-prometheus.wal-directory=/tmp/agent/data"]
 
