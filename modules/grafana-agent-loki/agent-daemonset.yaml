@@ -8,7 +8,7 @@ loki:
             kubernetes_sd_configs:
               - role: pod
             pipeline_stages:
-              - docker: {}
+              - ${pipeline_stage}: {}
             relabel_configs:
               - source_labels:
                   - __meta_kubernetes_pod_label_name
@@ -51,7 +51,7 @@ loki:
             kubernetes_sd_configs:
               - role: pod
             pipeline_stages:
-              - docker: {}
+              - ${pipeline_stage}: {}
             relabel_configs:
               - action: drop
                 regex: .+
@@ -98,7 +98,7 @@ loki:
             kubernetes_sd_configs:
               - role: pod
             pipeline_stages:
-              - docker: {}
+              - ${pipeline_stage}: {}
             relabel_configs:
               - action: drop
                 regex: .+
@@ -151,7 +151,7 @@ loki:
             kubernetes_sd_configs:
               - role: pod
             pipeline_stages:
-              - docker: {}
+              - ${pipeline_stage}: {}
             relabel_configs:
               - action: drop
                 regex: .+
@@ -206,7 +206,7 @@ loki:
             kubernetes_sd_configs:
               - role: pod
             pipeline_stages:
-              - docker: {}
+              - ${pipeline_stage}: {}
             relabel_configs:
               - action: drop
                 regex: ""
