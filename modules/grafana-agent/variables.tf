@@ -21,3 +21,8 @@ variable "k8s_namespace_kube_state_metrics" {
   default     = "default"
   description = "Namespace that kube-state-metrics is deployed in"
 }
+variable "k8s_namespace_node_exporter" {
+  type        = string
+  default     = "default"
+  description = "Namespace that node-exporter should be deployed in"
+}
