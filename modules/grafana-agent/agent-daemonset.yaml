@@ -76,11 +76,11 @@ prometheus:
                 regex: Succeeded|Failed
                 source_labels:
                   - __meta_kubernetes_pod_phase
-          - job_name: ${NAMESPACE}/kube-state-metrics
+          - job_name: ${NAMESPACE_KUBE_STATE_METRICS}/kube-state-metrics
             kubernetes_sd_configs:
               - namespaces:
                     names:
-                      - ${NAMESPACE}
+                      - ${NAMESPACE_KUBE_STATE_METRICS}
                 role: pod
             relabel_configs:
               - action: keep
@@ -94,11 +94,11 @@ prometheus:
                   - __meta_kubernetes_pod_container_name
                   - __meta_kubernetes_pod_container_port_name
                 target_label: instance
-          - job_name: ${NAMESPACE}/node-exporter
+          - job_name: ${NAMESPACE_NODE_EXPORTER}/node-exporter
             kubernetes_sd_configs:
               - namespaces:
                     names:
-                      - ${NAMESPACE}
+                      - ${NAMESPACE_NODE_EXPORTER}
                 role: pod
             relabel_configs:
               - action: keep
