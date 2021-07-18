@@ -1,6 +1,7 @@
 resource "kubernetes_service_account" "grafana_agent" {
   metadata {
-    name = "grafana-agent"
+    name      = "grafana-agent"
+    namespace = var.k8s_namespace
   }
 }
 
@@ -45,6 +46,6 @@ resource "kubernetes_cluster_role_binding" "grafana_agent" {
   subject {
     kind      = "ServiceAccount"
     name      = "grafana-agent"
-    namespace = "default"
+    namespace = var.k8s_namespace
   }
 }

@@ -11,6 +11,11 @@ variable "external_labels" {
   type    = map(string)
   default = {}
 }
+variable "k8s_namespace" {
+  type        = string
+  default     = "default"
+  description = "Namespace to deploy grafana-agent in"
+}
 variable "k8s_namespace_kube_state_metrics" {
   type        = string
   default     = "default"
