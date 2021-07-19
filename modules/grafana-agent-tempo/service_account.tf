@@ -1,6 +1,7 @@
 resource "kubernetes_service_account" "grafana_agent_traces" {
   metadata {
-    name = "grafana-agent-traces"
+    name      = "grafana-agent-traces"
+    namespace = var.k8s_namespace
   }
 }
 
@@ -29,7 +30,7 @@ resource "kubernetes_cluster_role_binding" "grafana_agent_traces" {
   subject {
     kind      = "ServiceAccount"
     name      = "grafana-agent-traces"
-    namespace = "default"
+    namespace = var.k8s_namespace
   }
 
   role_ref {

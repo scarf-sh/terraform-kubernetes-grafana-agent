@@ -13,3 +13,8 @@ variable "pipeline_stage" {
   description = "Which pipeline_stage to use"
   # See https://grafana.com/docs/loki/latest/clients/promtail/configuration/#pipeline_stages for options
 }
+variable "k8s_namespace" {
+  type        = string
+  default     = "default"
+  description = "Namespace to deploy grafana-agent-loki in"
+}

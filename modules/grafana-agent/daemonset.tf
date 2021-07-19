@@ -1,13 +1,14 @@
 resource "kubernetes_config_map" "grafana_agent_daemonset" {
   metadata {
-    name = "grafana-agent"
+    name      = "grafana-agent"
+    namespace = var.k8s_namespace
   }
   data = {
     "agent.yml" = templatefile("${path.module}/agent-daemonset.yaml", {
       REMOTE_WRITE_URL             = var.remote_write_url
       REMOTE_WRITE_USERNAME        = var.remote_write_username
       NAMESPACE_KUBE_STATE_METRICS = var.k8s_namespace_kube_state_metrics
-      NAMESPACE_NODE_EXPORTER      = "default" # this module deploys this in default right now
+      NAMESPACE_NODE_EXPORTER      = var.k8s_namespace_node_exporter
       EXTERNAL_LABELS              = var.external_labels
     })
   }
@@ -15,7 +16,8 @@ resource "kubernetes_config_map" "grafana_agent_daemonset" {
 
 resource "kubernetes_daemonset" "grafana_agent_daemonset" {
   metadata {
-    name = "grafana-agent"
+    name      = "grafana-agent"
+    namespace = var.k8s_namespace
   }
 
   spec {
