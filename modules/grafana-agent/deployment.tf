@@ -1,61 +1,49 @@
-resource "kubernetes_config_map" "grafana_agent_deployment" {
+resource "kubernetes_deployment" "grafana_agent" {
   metadata {
-    name      = "grafana-agent-deployment"
-    namespace = var.k8s_namespace
-  }
-  data = {
-    "agent.yml" = templatefile("${path.module}/agent-deployment.yaml", {
-      REMOTE_WRITE_URL      = var.remote_write_url
-      REMOTE_WRITE_USERNAME = var.remote_write_username
-      EXTERNAL_LABELS       = var.external_labels
-    })
-  }
-}
-
-resource "kubernetes_deployment" "grafana_agent_deployment" {
-  metadata {
-    name      = "grafana-agent-deployment"
+    name      = "grafana-agent"
     namespace = var.k8s_namespace
   }
 
   spec {
+    min_ready_seconds = 10
     replicas = 1
+    revision_history_limit = 10
 
     selector {
       match_labels = {
-        name = "grafana-agent-deployment"
+        name = "grafana-agent"
       }
     }
 
     template {
       metadata {
         labels = {
-          name = "grafana-agent-deployment"
+          name = "grafana-agent"
         }
       }
 
       spec {
         volume {
-          name = "grafana-agent-deployment"
+          name = "grafana-agent"
 
           config_map {
-            name = "grafana-agent-deployment"
+            name = "grafana-agent"
           }
         }
 
+        # https://github.com/hashicorp/terraform-provider-kubernetes/issues/38
         automount_service_account_token = true
         service_account_name            = "grafana-agent"
-
 
         container {
           name    = "agent"
           image   = "grafana/agent:v0.17.0"
           command = ["/bin/agent"]
-          args    = ["-config.file=/etc/agent/agent.yml", "-config.expand-env", "-prometheus.wal-directory=/tmp/agent/data"]
+          args    = ["-config.file=/etc/agent/agent.yml", "-config.expand-env"]
 
           port {
             name           = "http-metrics"
-            container_port = 80
+            container_port = 12345
           }
 
           env {
@@ -80,7 +68,7 @@ resource "kubernetes_deployment" "grafana_agent_deployment" {
           }
 
           volume_mount {
-            name       = "grafana-agent-deployment"
+            name       = "grafana-agent"
             mount_path = "/etc/agent"
           }
 
@@ -92,13 +80,10 @@ resource "kubernetes_deployment" "grafana_agent_deployment" {
         }
       }
     }
-
-    min_ready_seconds      = 10
-    revision_history_limit = 10
   }
 
   depends_on = [
     kubernetes_secret.grafana_agent,
-    kubernetes_config_map.grafana_agent_deployment
+    kubernetes_config_map.grafana_agent
   ]
 }
