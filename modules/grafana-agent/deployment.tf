@@ -49,7 +49,7 @@ resource "kubernetes_deployment" "grafana_agent_deployment" {
 
         container {
           name    = "agent"
-          image   = "grafana/agent:v0.16.0"
+          image   = "grafana/agent:v0.17.0"
           command = ["/bin/agent"]
           args    = ["-config.file=/etc/agent/agent.yml", "-config.expand-env", "-prometheus.wal-directory=/tmp/agent/data"]
 
