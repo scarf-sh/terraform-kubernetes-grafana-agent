@@ -1,7 +1,11 @@
 loki:
     configs:
       - clients:
-          - url: https://${LOKI_USERNAME}:$${LOKI_PASSWORD}@${LOKI_HOSTNAME}/loki/api/v1/push
+          - url: ${LOKI_HOSTNAME}/loki/api/v1/push
+            basic_auth:
+              username: ${LOKI_USERNAME}
+              password: $${LOKI_PASSWORD}
+
         name: default
         scrape_configs:
           - job_name: kubernetes-pods-name
