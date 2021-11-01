@@ -8,6 +8,7 @@ tempo:
           endpoint = TEMPO_ENDPOINT,
           basic_auth = (TEMPO_USERNAME != "") ? { username = TEMPO_USERNAME, password = "$${TEMPO_PASSWORD}" } : {},
           retry_on_failure = { enabled = TEMPO_ENDPOINT_RETRY_ON_FAILURE}
+          protocol = TEMPO_ENDPOINT_PROTOCOL
         }], (TEMPO_ADDITIONAL_ENDPOINTS != []) ? TEMPO_ADDITIONAL_ENDPOINTS : []))}
         %{~ if jsonencode(TEMPO_ATTRIBUTES) != "{}" ~}
         attributes: ${jsonencode(TEMPO_ATTRIBUTES)}

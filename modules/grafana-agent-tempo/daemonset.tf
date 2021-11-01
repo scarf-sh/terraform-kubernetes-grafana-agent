@@ -11,6 +11,7 @@ resource "kubernetes_config_map" "grafana_agent_traces" {
       TEMPO_ATTRIBUTES                = var.tempo_attributes
       TEMPO_ENDPOINT_RETRY_ON_FAILURE = var.tempo_endpoint_retry_on_failure
       TEMPO_ENDPOINT_HEADERS          = var.tempo_endpoint_headers
+      TEMPO_ENDPOINT_PROTOCOL         = var.tempo_endpoint_protocol
       TEMPO_ADDITIONAL_ENDPOINTS      = var.tempo_additional_endpoints
     })
     "strategies.json" = "{\"default_strategy\": {\"param\": 0.001, \"type\": \"probabilistic\"}}"
@@ -52,7 +53,7 @@ resource "kubernetes_daemonset" "grafana_agent_traces" {
 
         container {
           name    = "agent"
-          image   = "grafana/agent:v0.17.0"
+          image   = "grafana/agent:v0.18.4"
           command = ["/bin/agent"]
           args    = ["-config.file=/etc/agent/agent.yaml", "-config.expand-env"]
 

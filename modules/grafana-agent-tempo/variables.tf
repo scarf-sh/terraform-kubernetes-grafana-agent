@@ -11,6 +11,11 @@ variable "tempo_endpoint_retry_on_failure" {
   default     = false
   description = "Whether to enable 'Retry on failure' for the default endpoint."
 }
+variable "tempo_endpoint_protocol" {
+  type        = string
+  default     = "grpc"
+  description = "The protocol to use when sending to the (first) endpoint. grpc/http."
+}
 variable "tempo_username" {
   type        = string
   description = "Username to use for basic auth. Set to empty string to disable basic auth."
