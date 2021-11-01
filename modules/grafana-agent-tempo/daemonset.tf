@@ -52,7 +52,7 @@ resource "kubernetes_daemonset" "grafana_agent_traces" {
 
         container {
           name    = "agent"
-          image   = "grafana/agent:v0.17.0"
+          image   = "grafana/agent:v0.18.4"
           command = ["/bin/agent"]
           args    = ["-config.file=/etc/agent/agent.yaml", "-config.expand-env"]
 
