@@ -13,6 +13,9 @@ tempo:
         %{~ if jsonencode(TEMPO_ATTRIBUTES) != "{}" ~}
         attributes: ${jsonencode(TEMPO_ATTRIBUTES)}
         %{~ endif}
+        %{~ if jsonencode(TEMPO_TAIL_SAMPLING) != "{}" ~}
+        tail_sampling: ${jsonencode(TEMPO_TAIL_SAMPLING)}
+        %{~ endif}
         batch:
             send_batch_size: 1000
             timeout: 5s
