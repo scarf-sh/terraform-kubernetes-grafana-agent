@@ -33,6 +33,12 @@ variable "tempo_attributes" {
   default     = {}
   description = "Attributes to set for all endpoints."
 }
+variable "tempo_tail_sampling" {
+  type = map(any)
+  default = {}
+  description = "Tail-based sampling configuration"
+}
+
 variable "k8s_namespace" {
   type        = string
   default     = "default"
